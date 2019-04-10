@@ -2,6 +2,8 @@
 import React, { Component } from 'react'; // JSX is the reason for importing React
 import './App.css';
 import Person from './Person/Person.js'
+//import Radium, { StyleRoot } from 'radium';
+
 
 // App is a 'Stateful/Smart/Container Component' as it uses the setState property to change the state dynamically
 class App extends Component {
@@ -69,12 +71,17 @@ class App extends Component {
   render() {
     // inline styling
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      borderRadius: '3px'
+      borderRadius: '3px',
+      // ':hover': {
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     };
 
     let persons = null;
@@ -98,24 +105,36 @@ class App extends Component {
           }
         </div>
       )
+
+      style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // };
     }
 
+    // empty array for setting classes dynamically
+    const classes = [];
+    if (this.state.persons.length <= 2) { classes.push('red') }
+    if (this.state.persons.length <= 1) { classes.push('bold') }
+
     return (
-      <div className="App">
-        <h1>Hi, I'm React App!</h1>
-        {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
-        {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
-        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        { persons } {/*render persons element */}
-      </div>
+      //<StyleRoot>
+        <div className="App">
+          <p className={classes.join(' ')}>Hi, I'm React App!</p>
+          {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
+          {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
+          <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          { persons } {/*render persons element */}
+        </div>
+      //</StyleRoot>
     );
   //  return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m React App!')); JSX => behind the scenes
   }
 }
 
+// export default Radium(App);
 export default App;
-
-
 
 
 

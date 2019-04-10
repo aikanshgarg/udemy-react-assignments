@@ -7,4 +7,8 @@
 - We can't write block statements like if-else in rendering the elements to DOM in JSX. Use ternary( ? : ) operator instead. 
 
 - Rendering Lists: map() method is used to render a list for mapping a JS array with JSX elements array, and render them accordingly.
-- 'key' is required property of list items in React.
+  'key' is required property of list items in React.
+
+- 'Radium': to use CSS properties like pseduo selectors (:hover) and media queries inside .js files(JSX)
+   Useful for dynamically changing styles or scoping them to a particular component
+   'StyleRoot' component for using transformation selectors like media query and keyframes
