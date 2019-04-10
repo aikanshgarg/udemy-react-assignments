@@ -1,8 +1,13 @@
 // import React, { useState } from 'react';
 import React, { Component } from 'react'; // JSX is the reason for importing React
+
 import styles from './App.module.css';// Import css modules stylesheet as styles
-import Person from './Person/Person.js'
+
 //import Radium, { StyleRoot } from 'radium';
+
+import Persons from '../components/Persons/Persons';
+
+import Cockpit from '../components/Cockpit/Cockpit';
 
 
 // App is a 'Stateful/Smart/Container Component' as it uses the setState property to change the state dynamically
@@ -57,7 +62,6 @@ class App extends Component {
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow })
-    //console.log(`this.state.showPersons:${this.state.showPersons}`);
   }
 
   deletePersonsHandler = personIndex => {
@@ -69,47 +73,40 @@ class App extends Component {
 
 
   render() {
-    // // inline styling
-    // const style = {
-    //   backgroundColor: 'green',
-    //   color: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   borderRadius: '3px',
-    //   // ':hover': {
-    //   //   backgroundColor: 'lightgreen',
-    //   //   color: 'black'
-    //   // }
-    // };
 
     let persons = null;
-    let cssModuleClass = ''; 
+    //let cssModuleClass = ''; 
     
     if (this.state.showPersons) {
       persons = (
         <div>
+        {/*---------------------------------------------------------1st iteration: Hard coding the persons list--------------------------------------------------------*/}
           {/*<Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
           <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'Ann')} changed ={this.nameChangedHandler}>My Hobbies: Zumba </Person>
           <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />*/}
-          
+        
+       {/*----------------------------------------------------------2nd iteration: List & Conditionals ---------------------------------------------------------------*/}
           {/*WRAPPING IN {} TO WRITE JS: use the map method on each object of persons array in current state and return a JSX object*/} 
-          {
-            this.state.persons.map((person, index) => { 
-              return <Person 
-                click={() => this.deletePersonsHandler(index)}
-                name={person.name}
-                age={person.age} 
-                key={person.id} 
-                changed={event => this.nameChangedHandler(event, person.id)}  />
-            })
-          }
+          {/*
+              this.state.persons.map((person, index) => { 
+                return <Person 
+                 click={() => this.deletePersonsHandler(index)}
+                 name={person.name}
+                 age={person.age} 
+                 key={person.id} 
+                 changed={event => this.nameChangedHandler(event, person.id)}  />
+             })
+          */}
+        {/*-----------------------------------------------------------3rd iteration: Better folder structure ---------------------------------------------------------*/}
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonsHandler}
+            changed={this.nameChangedHandler} />
         </div>
       );
 
-      cssModuleClass = styles.Red;
-      // ------------------------------removing inline styles and using css modules instead-----------------
+      // ------------------------------ -----------------------------Removing inline styles and using css modules instead-----------------------------------
+      //cssModuleClass = styles.Red;
       // style.backgroundColor = 'red';
       // style[':hover'] = {
       //   backgroundColor: 'salmon',
@@ -117,28 +114,54 @@ class App extends Component {
       // };
     }
 
-    // empty array for setting classes dynamically
-    const classes = [];
-    if (this.state.persons.length <= 2) { classes.push(styles.red) }
-    if (this.state.persons.length <= 1) { classes.push(styles.bold) }
+    
 
-    return (
-      //<StyleRoot>
-        <div className={styles.App}>
-          <p className={classes.join(' ')}>Hi, I'm React App!</p>
-          {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
-          {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
-          <button className={cssModuleClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          { persons } {/*render persons element */}
-        </div>
-      //</StyleRoot>
-    );
-  //  return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m React App!')); JSX => behind the scenes
+    // return (
+    //   //<StyleRoot>
+    //     <div className={styles.App}>
+    //       <p className={classes.join(' ')}>Hi, I'm React App!</p>
+    //       {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
+    //       {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
+    //       <button className={cssModuleClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+    //       { persons } {/*render persons element from line 77*/}
+    //     </div>
+    //   //</StyleRoot>
+    // );
+  //  return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m React App!')); -----------JSX => behind the scenes-----------------
+  
+        return (
+          <div className={styles.App}>
+            <Cockpit persons={this.state.persons} showPersons={this.state.showPersons} clicked={this.togglePersonsHandler}/>
+            { persons }
+          </div>  
+        )
   }
 }
 
 // export default Radium(App);
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

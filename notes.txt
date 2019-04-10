@@ -6,6 +6,8 @@
 
 - We can't write block statements like if-else in rendering the elements to DOM in JSX. Use ternary( ? : ) operator instead. 
 
+- 1 root element(div) is required to be wrapped around in return() statement of rendering JSX
+
 - Rendering Lists: map() method is used to render a list for mapping a JS array with JSX elements array, and render them accordingly.
   'key' is required property of list items in React.
 
