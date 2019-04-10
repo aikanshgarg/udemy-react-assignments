@@ -35,17 +35,9 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      background: 'ivory',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      padding: '1rem'
-    };
-
-
     return (
       <div className="App">
-        <UserInput food={this.state.pets[0].food} changed={this.foodChangedHandler} style={style}/>
+        <UserInput food={this.state.pets[0].food} changed={this.foodChangedHandler}/>
         <UserOutput name={this.state.pets[0].name} type={this.state.pets[0].type} food={this.state.pets[0].food} click={this.switchFoodHandler.bind(this, 'Fish')}/>
         <UserOutput name={this.state.pets[1].name} type={this.state.pets[1].type} food={this.state.pets[1].food}/>        
       </div>

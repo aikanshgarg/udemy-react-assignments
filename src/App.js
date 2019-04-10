@@ -8,11 +8,12 @@ class App extends Component {
   // Only available for components expending Component class
   state = {
     persons: [
-       { name: 'Max', age: 28 },
-       { name: 'Manu', age: 29 },
-       { name: 'Stephenie', age: 26 }
+       { id: 'asdf1' , name: 'Max', age: 28 },
+       { id: 'asdf2' , name: 'Manu', age: 29 },
+       { id: 'asdf3' , name: 'Stephenie', age: 26 }
     ],
-    otherState: 'some other value' 
+    otherState: 'some other value',
+    showPersons: false 
   }
 
   switchNameHandler = (newName) => {
@@ -26,18 +27,47 @@ class App extends Component {
     })
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({ 
-      persons: [
-         { name: 'Max', age: 28 },
-         { name: event.target.value, age: 29 },
-         { name: 'Stephenie', age: 26 }
-      ] 
+  nameChangedHandler = (event, id) => {
+    // find the person whose name is changed with the help of id
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     })
+    // ES6 spread operator to have a copy of the object because objects are reference type in JS(we ony get a pointer to access them), so we can't mutate them.
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+    // set name of person to current value in input field
+    person.name = event.target.value;
+    // make a new copy of persons array and use it to modify original array in setState
+    const persons = [...this.state.persons];
+    // assign the new person object(with name changed) in our copied array
+    persons[personIndex] = person;
+
+     // set original persons array to our copied and modified one(line 42)
+    this.setState({ persons: persons })
+      // persons: [
+      //    { name: 'Max', age: 28 },
+      //    { name: event.target.value, age: 29 },
+      //    { name: 'Stephenie', age: 26 }
+      // ]    
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow })
+    console.log(`this.state.showPersons:${this.state.showPersons}`);
+  }
+
+  deletePersonsHandler = personIndex => {
+    //const persons = this.state.persons.slice(); // slice: copying an array => to stop mutation of original array
+    const persons = [...this.state.persons]; // spread operator: ES6 way of copying an array
+    persons.splice(personIndex, 1); // deletes an element
+    this.setState({ persons: persons })
   }
 
 
   render() {
+    // inline styling
     const style = {
       backgroundColor: 'white',
       font: 'inherit',
@@ -47,14 +77,36 @@ class App extends Component {
       borderRadius: '3px'
     };
 
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {/*<Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+          <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'Ann')} changed ={this.nameChangedHandler}>My Hobbies: Zumba </Person>
+          <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />*/}
+          
+          {/*WRAPPING IN {} TO WRITE JS: use the map method on each object of persons array in current state and return a JSX object*/} 
+          {
+            this.state.persons.map((person, index) => { 
+              return <Person 
+                click={() => this.deletePersonsHandler(index)}
+                name={person.name}
+                age={person.age} 
+                key={person.id} 
+                changed={event => this.nameChangedHandler(event, person.id)}  />
+            })
+          }
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>Hi, I'm React App!</h1>
-        {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/}
-        <button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this, 'Ann')} changed ={this.nameChangedHandler}>My Hobbies: Zumba</Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+        {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
+        {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
+        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        { persons } {/*render persons element */}
       </div>
     );
   //  return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m React App!')); JSX => behind the scenes

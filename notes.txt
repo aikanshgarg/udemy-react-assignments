@@ -1,0 +1,10 @@
+
+- JSX is a preprocessor step that adds XML syntax to JavaScript. You can definitely use React without JSX but JSX makes React a lot more elegant. 
+	*It converts components to JS syntax by using the import React and it's createElement() method. 
+
+- React has a VIRTUAL DOM which it compares with current dom to see what should it render, compares present with future.
+
+- We can't write block statements like if-else in rendering the elements to DOM in JSX. Use ternary( ? : ) operator instead. 
+
+- Rendering Lists: map() method is used to render a list for mapping a JS array with JSX elements array, and render them accordingly.
+- 'key' is required property of list items in React.
