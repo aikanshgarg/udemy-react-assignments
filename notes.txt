@@ -12,3 +12,7 @@
 - 'Radium': to use CSS properties like pseduo selectors (:hover) and media queries inside .js files(JSX)
    Useful for dynamically changing styles or scoping them to a particular component
    'StyleRoot' component for using transformation selectors like media query and keyframes
+
+- CSS Modules: https://css-tricks.com/css-modules-part-1-need/   https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
+
+- ErrorBoundary => show custom error messages to user on production side if there's some thing which might fail

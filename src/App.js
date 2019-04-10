@@ -1,6 +1,6 @@
 // import React, { useState } from 'react';
 import React, { Component } from 'react'; // JSX is the reason for importing React
-import './App.css';
+import styles from './App.module.css';// Import css modules stylesheet as styles
 import Person from './Person/Person.js'
 //import Radium, { StyleRoot } from 'radium';
 
@@ -57,7 +57,7 @@ class App extends Component {
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow })
-    console.log(`this.state.showPersons:${this.state.showPersons}`);
+    //console.log(`this.state.showPersons:${this.state.showPersons}`);
   }
 
   deletePersonsHandler = personIndex => {
@@ -69,22 +69,24 @@ class App extends Component {
 
 
   render() {
-    // inline styling
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      borderRadius: '3px',
-      // ':hover': {
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black'
-      // }
-    };
+    // // inline styling
+    // const style = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   borderRadius: '3px',
+    //   // ':hover': {
+    //   //   backgroundColor: 'lightgreen',
+    //   //   color: 'black'
+    //   // }
+    // };
 
     let persons = null;
+    let cssModuleClass = ''; 
+    
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -104,9 +106,11 @@ class App extends Component {
             })
           }
         </div>
-      )
+      );
 
-      style.backgroundColor = 'red';
+      cssModuleClass = styles.Red;
+      // ------------------------------removing inline styles and using css modules instead-----------------
+      // style.backgroundColor = 'red';
       // style[':hover'] = {
       //   backgroundColor: 'salmon',
       //   color: 'black'
@@ -115,16 +119,16 @@ class App extends Component {
 
     // empty array for setting classes dynamically
     const classes = [];
-    if (this.state.persons.length <= 2) { classes.push('red') }
-    if (this.state.persons.length <= 1) { classes.push('bold') }
+    if (this.state.persons.length <= 2) { classes.push(styles.red) }
+    if (this.state.persons.length <= 1) { classes.push(styles.bold) }
 
     return (
       //<StyleRoot>
-        <div className="App">
+        <div className={styles.App}>
           <p className={classes.join(' ')}>Hi, I'm React App!</p>
           {/*<button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>*/} {/*either use arrow fn or bind for 'this'*/}
           {/*<button style={style} onClick={ () => this.switchNameHandler('Maximilian!!') }>Switch Name</button>*/}
-          <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          <button className={cssModuleClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
           { persons } {/*render persons element */}
         </div>
       //</StyleRoot>
