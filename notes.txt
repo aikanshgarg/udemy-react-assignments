@@ -18,3 +18,8 @@
 - CSS Modules: https://css-tricks.com/css-modules-part-1-need/   https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
 
 - ErrorBoundary => show custom error messages to user on production side if there's some thing which might fail
+
+- 'useEffect' takes a fn which executes at every render cycle (runs for every update) 
+   second arguments: 
+   					[] -> empty array -> runs fn only when component is unmounted(deleted) or rendered for first time
+   					no arguments -> run each time something is rendered

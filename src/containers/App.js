@@ -21,7 +21,8 @@ class App extends Component {
        { id: 'asdf3' , name: 'Stephenie', age: 26 }
     ],
     otherState: 'some other value',
-    showPersons: false 
+    showPersons: false,
+    showCockpit: true 
   }
 
   //STEP-2
@@ -101,10 +102,18 @@ class App extends Component {
   
     return (
       <div className={styles.App}>
-        <Cockpit title={this.props.appTitle} 
+        <button onClick={() => {
+                  this.setState({showCockpit: false});
+                }} >
+                Remove Cockpit
+        </button>
+        { this.state.showCockpit ? (
+        <Cockpit 
+                 title={this.props.appTitle} 
                  persons={this.state.persons} 
                  showPersons={this.state.showPersons} 
                  clicked={this.togglePersonsHandler}  />
+                 ) : null }
         { persons }
       </div>  
     )

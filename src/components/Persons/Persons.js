@@ -28,6 +28,11 @@ class Persons extends Component {
 		console.log(snapshot); // receives object returned from snapshot method
 	}
 
+	// CLEAN-UP WORK
+	componentWillUnmount() {
+		console.log('[Persons.js] componentWillUnmount');
+	}
+
 	render() {
 		// STEP-3
 		console.log('[Persons.js] rendering...');
