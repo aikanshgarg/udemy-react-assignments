@@ -26,8 +26,8 @@ const cockpit = props => {
 
 	// empty array for setting classes dynamically
     const classes = [];
-    if (props.persons.length <= 2) { classes.push(styles.red) }
-    if (props.persons.length <= 1) { classes.push(styles.bold) }
+    if (props.personsLength <= 2) { classes.push(styles.red) }
+    if (props.personsLength <= 1) { classes.push(styles.bold) }
 
 
     let cssModuleClass = ''; 
@@ -43,4 +43,4 @@ const cockpit = props => {
 	);
 } 
 
-export default cockpit;
+export default React.memo(cockpit);

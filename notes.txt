@@ -23,3 +23,16 @@
    second arguments: 
    					[] -> empty array -> runs fn only when component is unmounted(deleted) or rendered for first time
    					no arguments -> run each time something is rendered
+
+- Always make a copy of the original object or array of state when manipulating it. shouldComponentUpdate() compares the pointers to these arrays, thus, had we edited the 	  same array, the pointer would have remained the same and comparision would always be true! LECTURE NO: 93
+  React.memo(component) does the same work in functional components  
+
+- PureComponent: doesn't run any life cycle hook if any property is unchanged => Use instead of shouldComponentUpdate()
+
+- Adjacent jsx are returned 
+	1) In an array with a unique id
+	2) aux
+	3) React.fragment
+	4) WithClass hoc
+	5) withClass function returning a hoc
+	***	HOC: write some HTML/CSS/JS for us behind the scenes(wrappers) 

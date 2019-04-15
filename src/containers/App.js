@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+//import WithClass from '../hoc/WithClass';
 
 class App extends Component {
 
@@ -22,7 +23,8 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
-    showCockpit: true 
+    showCockpit: true,
+    changeCounter: 0
   }
 
   //STEP-2
@@ -73,8 +75,14 @@ class App extends Component {
     persons[personIndex] = person;
 
      // set original persons array to our copied and modified one(line 42)
-    this.setState({ persons: persons })
-  }
+    // this.setState({ persons: persons })
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
+    });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
@@ -102,6 +110,7 @@ class App extends Component {
   
     return (
       <div className={styles.App}>
+      {/*<WithClass classes={styles.App} >*/}
         <button onClick={() => {
                   this.setState({showCockpit: false});
                 }} >
@@ -110,11 +119,12 @@ class App extends Component {
         { this.state.showCockpit ? (
         <Cockpit 
                  title={this.props.appTitle} 
-                 persons={this.state.persons} 
+                 personsLength={this.state.persons.length} 
                  showPersons={this.state.showPersons} 
                  clicked={this.togglePersonsHandler}  />
                  ) : null }
         { persons }
+      {/*</WithClass>*/}
       </div>  
     )
   }
