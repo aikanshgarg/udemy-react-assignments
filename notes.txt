@@ -36,3 +36,8 @@
 	4) WithClass hoc
 	5) withClass function returning a hoc
 	***	HOC: write some HTML/CSS/JS for us behind the scenes(wrappers) 
+
+- AuthContext API: used to pass objects or states among diff components, without needing pass the data via props
+				   The JSX components which need it are wrapped inside (consumer & provider). 
+				   In consuming, we return a fn which gets a context argument by default.
+				   contexType is used for class based & useContext for functional components, when we want to use it outside of JSX code

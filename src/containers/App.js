@@ -3,6 +3,8 @@ import styles from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+import AuthContext from '../context/auth-context'
+
 //import WithClass from '../hoc/WithClass';
 
 class App extends Component {
@@ -24,7 +26,8 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   //STEP-2
@@ -56,7 +59,7 @@ class App extends Component {
          { name: 'Stephenie', age: 26 }
       ] 
     })
-  }
+  };
 
   nameChangedHandler = (event, id) => {
     // find the person whose name is changed with the help of id
@@ -87,13 +90,17 @@ class App extends Component {
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow })
-  }
+  };
 
   deletePersonsHandler = personIndex => {
     const persons = [...this.state.persons]; 
     persons.splice(personIndex, 1); 
     this.setState({ persons: persons })
-  }
+  };
+
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  };
 
   //STEP-3
   render() {
@@ -105,7 +112,8 @@ class App extends Component {
       persons = <Persons
                   persons={this.state.persons}
                   clicked={this.deletePersonsHandler}
-                  changed={this.nameChangedHandler} /> ;
+                  changed={this.nameChangedHandler}
+                  isAuthenticated={this.state.authenticated}/> ;
     }
   
     return (
@@ -116,14 +124,22 @@ class App extends Component {
                 }} >
                 Remove Cockpit
         </button>
+
+        <AuthContext.Provider 
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
         { this.state.showCockpit ? (
         <Cockpit 
                  title={this.props.appTitle} 
                  personsLength={this.state.persons.length} 
                  showPersons={this.state.showPersons} 
-                 clicked={this.togglePersonsHandler}  />
+                 clicked={this.togglePersonsHandler} />
                  ) : null }
         { persons }
+        </AuthContext.Provider >
       {/*</WithClass>*/}
       </div>  
     )

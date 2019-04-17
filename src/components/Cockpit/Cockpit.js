@@ -1,17 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from './Cockpit.module.css';// Import css modules stylesheet as styles
 
+import AuthContext from '../../context/auth-context'
+
 const cockpit = props => {
+
+		const toggleBtnRef = useRef(null);
+		//toggleBtnRef.current.click();
+
 	// useEffect takes a fn which executes at every render cycle (runs for every update)
 	useEffect(() => {
 		console.log('[Cockpit.js] useEffect');
+
+		toggleBtnRef.current.click();
+
 		// Http request...
-		const timer = setTimeout(() => { 
-			alert('saved data to cloud');
-		}, 1000);
+		// const timer = setTimeout(() => { 
+		// 	alert('saved data to cloud');
+		// }, 1000);
 		// this runs AFTER the useEffect runs for the last time, i.e, after a component is destroyed
 		return () => {
-			clearTimeout(timer);
+			//clearTimeout(timer);
 			console.log('[Cockpit.js] cleanup work in useEffect');
 		};
 	}, []); // this second argument decides on which components do we call the useEffects method
@@ -38,7 +47,10 @@ const cockpit = props => {
 	return (
 		<div className={styles.Cockpit}>
 			<p className={classes.join(' ')}>{props.title}</p>
-          	<button className={cssModuleClass} onClick={props.clicked}>Toggle Persons</button>
+          	<button ref={toggleBtnRef} className={cssModuleClass} onClick={props.clicked}>Toggle Persons</button>
+          	<AuthContext.Consumer>
+          	{context => <button onClick={context.login}>Log In</button>}
+          	</AuthContext.Consumer>
 		</div>
 	);
 } 
