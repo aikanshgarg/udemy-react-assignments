@@ -41,3 +41,22 @@
 				   The JSX components which need it are wrapped inside (consumer & provider). 
 				   In consuming, we return a fn which gets a context argument by default.
 				   contexType is used for class based & useContext for functional components, when we want to use it outside of JSX code
+
+
+
+
+
+
+
+
+
+
+
+				   ----------------------------BURGER BUILDER-----------------------------------
+
+- Folder structure: components folder => stateless components, containers folder => stateful components
+- Used Aux for giving a wrapping div to return adjacent JSX elements
+- Images in Webpack? How it handles, optimises and stores them? - lecture 169
+- CSS modules makes it possible => wrapping logo inside a div for controlling it's height in diff components - 172
+- use lifecycle hook for modal component as it need not be rendered each time
+- JSON placeholder typeicode

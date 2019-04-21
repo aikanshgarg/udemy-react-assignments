@@ -1,0 +1,5 @@
+
+- componentDidMount() is the place to send http requests, using axios => for creation life cycle hooks
+
+- componentDidUpdate() is the place to send http requests, using axios => for updation life cycle hooks
+	=> On updating/using setState inside this method, we enter an infinite loop
