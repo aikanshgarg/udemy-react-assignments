@@ -3,3 +3,10 @@
 
 - componentDidUpdate() is the place to send http requests, using axios => for updation life cycle hooks
 	=> On updating/using setState inside this method, we enter an infinite loop
+
+- react-router-dom: routing package
+	- withRouter: hoc ==> used to send props down the component tree, ex: passing props from Posts container to Post component
+
+- Navigation is all about stacking of pages!
+
+- convert a string type to number type using ===> +string

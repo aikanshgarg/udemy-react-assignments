@@ -1,59 +1,39 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
+import Posts from './Posts/Posts';
+import NewPost from './NewPost/NewPost';
+//import FullPost from './FullPost/FullPost';
 
-class Blog extends Component {
+import { Route, NavLink, Switch } from 'react-router-dom';
+// relative path ==> pathname: this.props.match.url + '/new-post'
 
-    state = {
-        posts: [],
-        selectedPostId: null
-    }
-
-    // setting state inside then because posts are fetched asynchronously from server(typeicode). Thus, setting it outside will be undefined
-    componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-            .then(response => {
-                const posts = response.data.slice(0, 4);
-                const updatedPosts = posts.map(post => {
-                    return {
-                        ...post,
-                        author: 'Aikansh'
-                    }
-                });
-                this.setState({ posts: updatedPosts })
-                //console.log(response);
-            })
-    }
-
-    // method to render a post on clicking it
-    postSelectedHandler = id => {
-        this.setState({selectedPostId: id})
-    }    
+class Blog extends Component {     
 
     render () {
-
-        const posts = this.state.posts.map(post => {
-            return <Post key={post.id} 
-                         title={post.title} 
-                         author={post.author}
-                         clicked={() => this.postSelectedHandler(post.id)} />
-        })
-
         return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
-                    <FullPost id={this.state.selectedPostId} />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                            <li><NavLink to="/posts/" exact activeClassName="active">Posts</NavLink></li>
+                            <li><NavLink to={{
+                                pathname: '/new-post',
+                                hash: '#submit',
+                                search: '?quick-submit=true'
+                            }}>New Post</NavLink></li>
+                        </ul>
+                    </nav>
+                </header> 
+                {/*when the path is root or exactly '/', we render JSX written inside the component*/}
+                {/*<Route path="/" exact render={() => <h1>Home</h1>} />*/}
+                
+                {/*NESTED ROUTING USED*/}
+                <Switch>  {/*matches the first found Route and stops parsing after that ===> ORDER of Routes is IMP*/}
+                    <Route path="/new-post" component={NewPost} />
+                    <Route path="/posts" component={Posts} />
+                    {/*<Route path="/:id" exact component={FullPost} />*/} {/*// :id ===> flexible path*/}
+                </Switch>
             </div>
         );
     }

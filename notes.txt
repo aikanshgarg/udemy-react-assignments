@@ -1,6 +1,7 @@
 
 - JSX is a preprocessor step that adds XML syntax to JavaScript. You can definitely use React without JSX but JSX makes React a lot more elegant. 
-	*It converts components to JS syntax by using the import React and it's createElement() method. 
+	* It converts components to JS syntax by using the import React and it's createElement() method. 
+	* ReactJS component names must begin with capital letters
 
 - React has a VIRTUAL DOM which it compares with current dom to see what should it render, compares present with future.
 
@@ -60,3 +61,10 @@
 - CSS modules makes it possible => wrapping logo inside a div for controlling it's height in diff components - 172
 - use lifecycle hook for modal component as it need not be rendered each time
 - JSON placeholder typeicode
+- interceptors: we can intercept errors of axios and show some UI(modal) to the user
+
+- Class based component is prefered over functional component if :-
+	1. we need to manage state using setState(without useState/hooks)
+	2. we need to use component life cycle methods
+
+- Routing: turns ReactJS from component making library to a framework
